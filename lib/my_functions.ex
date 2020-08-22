@@ -8,7 +8,7 @@ defmodule MyFunctions do
 
   ## Examples
 
-      iex> fact(5)
+      iex> MyFunctions.fact(5)
       120
 
   """
@@ -23,7 +23,7 @@ defmodule MyFunctions do
 
   ## Examples
 
-      iex> fib(10)
+      iex> MyFunctions.fib(10)
       55
   """
   def fib(n), do: _fib(n, 0, 1)
@@ -37,7 +37,7 @@ defmodule MyFunctions do
 
   ## Examples
 
-      iex> reverse([1, 2, 3])
+      iex> MyFunctions.reverse([1, 2, 3])
       [3, 2, 1]
   """
   def reverse(list), do: _reverse(list, [])
@@ -51,15 +51,35 @@ defmodule MyFunctions do
 
   ## Examples
 
-      iex> map([1, 2, 3], fn x -> x * x end)
+      iex> MyFunctions.map([1, 2, 3], fn x -> x * x end)
       [1, 4, 9]
   """
 
-  def map(list, fun), do: _map(list, [], fun)
+  def map(list, fun), do: _map(list, fun, [])
 
-  defp _map([], acc, _fun), do: reverse(acc)
+  defp _map([], _, acc), do: reverse(acc)
 
-  defp _map([h | t], acc, fun), do: _map(t, [fun.(h) | acc], fun)
+  defp _map([h | t], fun, acc), do: _map(t, fun, [fun.(h) | acc])
 
+  @doc """
+  Filters the enumerable.
+
+  ## Examples
+
+      iex> MyFunctions.filter([1, 2, 3], fn x -> rem(x, 2) == 0 end)
+      [2]
+  """
+  def filter(list, fun), do: _filter(list, fun, [])
+
+  defp _filter([], _, acc), do: reverse(acc)
+
+  defp _filter([h | t], fun, acc) do
+    case fun.(h) do
+      true ->
+        _filter(t, fun, [h | acc])
+      false ->
+        _filter(t, fun, acc)
+    end
+  end
 
 end
