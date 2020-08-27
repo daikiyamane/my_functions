@@ -4,7 +4,7 @@ defmodule IsPrime do
 
   ## Examples
 
-    iex> is_prime(10)
+    iex> IsPrime.is_prime(10)
     false
   """
 
@@ -29,7 +29,7 @@ defmodule IsPrime do
 
   ## Examples
 
-    iex> print_prime(1, 10)
+    iex> IsPrime.print_prime(1, 10)
     2
     3
     5
